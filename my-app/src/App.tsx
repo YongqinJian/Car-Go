@@ -11,7 +11,8 @@ const AppContainer = styled.div`
     h-full
     flex
     flex-col
-
+    items-center
+    overflow-x-hidden
   `};
 `;
 
