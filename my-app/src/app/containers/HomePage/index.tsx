@@ -6,16 +6,15 @@ const PageContainer = styled.div`
     ${tw`
         flex
         flex-col
-        w-ful
+        w-full
         h-full
         items-center
         overflow-x-hidden
-        item
-    `}
+    `};
 `;
 
 export function HomePage(){
     return <PageContainer>
-        Hello World!
+        勇敢🐱不怕困难
     </PageContainer>
 }
