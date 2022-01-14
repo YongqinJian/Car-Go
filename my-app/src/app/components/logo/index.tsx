@@ -33,10 +33,12 @@ const Image = styled.div`
 `;
 
 export function Logo(){
-    return <LogoContainer>
-        <Image>
-            <img src={CarLogoImg} />
-        </Image>
-        <LogoText>Car-Go</LogoText>
-    </LogoContainer>
-}
+    return (
+        <LogoContainer>
+            <Image>
+                <img src={CarLogoImg} />
+            </Image>
+            <LogoText>Car-Go</LogoText>
+        </LogoContainer>
+    );
+};
