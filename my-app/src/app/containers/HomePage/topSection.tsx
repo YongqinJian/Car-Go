@@ -146,6 +146,8 @@ const StandalongCar = styled.div`
 const ButtonContainer = styled.div`
     ${tw`
         flex
+        mt-4
+        flex-wrap
     `};
 `;
 
