@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import tw from "twin.macro";
 import McLarenCarImg from "../../../assets/images/mclaren-orange-big.png";
-import BlobImg from "../../../assets/images/blob.svg"
+import BlobImg from "../../../assets/images/blob.svg";
 import { SCREENS } from "../../components/responsive";
+import { Button } from "../../components/button";
 
 
 const TopSectionContainer = styled.div`
@@ -142,6 +143,12 @@ const StandalongCar = styled.div`
 
 `;
 
+const ButtonContainer = styled.div`
+    ${tw`
+        flex
+    `};
+`;
+
 export function TopSection() {
     return (
         <TopSectionContainer>
@@ -150,9 +157,14 @@ export function TopSection() {
                 <Slogan>Having Best Life With Our Cars</Slogan>
                 <Description>
                     Always choose the best car from our local stores or order it remotely
-                    at the best price for you and get the best quality cars for as long 
+                    at the best price for you and get the best quality cars for as long
                     as you like.
                 </Description>
+                <ButtonContainer>
+                    <Button text="Book Your Ride" />
+                    <Button theme="filled" text="Sell Your Car" />
+                </ButtonContainer>
+
             </LeftContainer>
 
             <RightContainer>
