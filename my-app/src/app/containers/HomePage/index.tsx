@@ -16,13 +16,13 @@ const PageContainer = styled.div`
     `};
 `;
 
-export function HomePage(){
+export function HomePage() {
     return (
-    <PageContainer>
-        <Navbar />
-        勇敢🐱不怕困难
-        <TopSection />
-        <BookCard />
-    </PageContainer>
+        <PageContainer>
+            <Navbar />
+            勇敢🐱不怕困难
+            <TopSection />
+            <BookCard />
+        </PageContainer>
     );
 }
