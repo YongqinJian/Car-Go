@@ -20,7 +20,6 @@ export function HomePage() {
     return (
         <PageContainer>
             <Navbar />
-            勇敢🐱不怕困难
             <TopSection />
             <BookCard />
         </PageContainer>
