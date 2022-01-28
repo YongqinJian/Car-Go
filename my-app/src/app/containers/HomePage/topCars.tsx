@@ -77,8 +77,8 @@ export function Topcars() {
         gas: "Petrol",
     };
 
-    const cars=[
-        (<Car {...testCar} />), (<Car {...testCar} />), 
+    const cars = [
+        (<Car {...testCar} />), (<Car {...testCar} />),
         (<Car {...testCar2} />), (<Car {...testCar2} />),
         (<Car {...testCar} />), (<Car {...testCar2} />)
     ];
@@ -86,15 +86,15 @@ export function Topcars() {
     return <TopCarContainer>
         <Title>Explore Our Featured Deals</Title>
         <CarsContainer>
-            <Carousel value={current} onChange={setCurrent} 
-                slides={cars} 
-                
+            <Carousel value={current} onChange={setCurrent}
+                slides={cars}
+
                 // Setting up how many component to show in a slides
                 plugins={[
                     "clickToChange",
                     {
                         resolve: slidesToShowPlugin,
-                        options:{
+                        options: {
                             numberOfSlides: 3,
                         },
                     },
@@ -104,10 +104,10 @@ export function Topcars() {
                 breakpoints={{
                     // for 640 px
                     640: {
-                        plugins:[
+                        plugins: [
                             {
                                 resolve: slidesToShowPlugin,
-                                options:{
+                                options: {
                                     numberOfSlides: 1,
                                 }
                             }
@@ -115,10 +115,10 @@ export function Topcars() {
                     },
                     // for 900 px
                     900: {
-                        plugins:[
+                        plugins: [
                             {
                                 resolve: slidesToShowPlugin,
-                                options:{
+                                options: {
                                     numberOfSlides: 2,
                                 }
                             }
@@ -127,7 +127,7 @@ export function Topcars() {
                 }}
             />
 
-            <Dots value={current} onChange={setCurrent} number={isMobile? cars.length : Math.ceil(cars.length/3)} />
+            <Dots value={current} onChange={setCurrent} number={isMobile ? cars.length : Math.ceil(cars.length / 3)} />
 
         </CarsContainer>
     </TopCarContainer>;
