@@ -11,7 +11,7 @@ export class CarsResolver {
 
     }
 
-    @Query(returns => [Car])
+    @Query( (returns) => [Car])
     // exact name when you going to use the query
     public async cars(): Promise<Car[]> {
         return await this.carsService.getAllCars().catch((err) => {
@@ -20,8 +20,10 @@ export class CarsResolver {
     }
 
     @Mutation(returns => Car)
-    public async addNewCar(@Args("newCarData") newCarInput: NewCarInput ): Promise<Car>{
-
+    public async addNewCar(@Args("newCarData") newCarData: NewCarInput): Promise<Car> {
+        return await this.carsService.addCar(newCarData).catch((err) => {
+            throw err;
+        });
     }
 
 }

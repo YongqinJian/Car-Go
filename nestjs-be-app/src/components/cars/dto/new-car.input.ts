@@ -7,6 +7,7 @@ export class NewCarInput {
     name: string;
 
     @Field(type => Int)
+    @
     monthlyPrice: number;
 
     @Field(type => Int)
@@ -22,6 +23,6 @@ export class NewCarInput {
     gearType: string;
 
     @Field()
-    thubmnailUrl: string;
+    thumbnailUrl: string;
 
 }
