@@ -8,6 +8,12 @@ import "@brainhubeu/react-carousel/lib/style.css";
 import { useMediaQuery } from "react-responsive";
 import { SCREENS } from "../../components/responsive";
 import carService from "../../services/carService";
+import { Dispatch } from "@reduxjs/toolkit";
+import { GetCars_cars } from "../../services/carService/__generated__/GetCars";
+import { setTopCars } from "./slice";
+import { useDispatch, useSelector } from "react-redux";
+import { makeSelectTopCars } from "./selectors";
+import { createSelector } from "reselect";
 
 const TopCarContainer = styled.div`
     ${tw`
@@ -48,6 +54,27 @@ const CarsContainer = styled.div`
   `};  
 `;
 
+const EmptyCars = styled.div`
+    ${tw`
+        flex
+        w-full
+        justify-center
+        items-center
+        text-sm
+        text-gray-500
+    `};
+`;
+
+const actionDispatch = (dispatch: Dispatch) => ({
+    setTopCars: (cars: GetCars_cars[]) => dispatch(setTopCars(cars)),
+});
+
+const stateSelector = createSelector(makeSelectTopCars, (topCars) => ({
+    topCars
+}));
+
+
+
 export function Topcars() {
 
 
@@ -55,51 +82,62 @@ export function Topcars() {
 
     const isMobile = useMediaQuery({ maxWidth: SCREENS.sm });
 
+    const { topCars } = useSelector(stateSelector);
+    const { setTopCars } = actionDispatch(useDispatch());
+
     const fetchTopCars = async () => {
         const cars = await carService.getCars().catch((err) => {
-            console.log("Error: ",err);
+            console.log("Error: ", err);
         });
 
-        console.log("Cars: ",cars);
-
-    }
-
-
-    const testCar: ICar = {
-        name: "Audi S3 Car",
-        mileage: "10k",
-        thumbnailSrc:
-            "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
-        dailyPrice: 70,
-        monthlyPrice: 1600,
-        gearType: "Auto",
-        gas: "Petrol",
+        console.log("Cars: ", cars);
+        if (cars)
+            setTopCars(cars);
     };
 
-    const testCar2: ICar = {
-        name: "HONDA cITY 5 Seater Car",
-        mileage: "20k",
-        thumbnailSrc:
-            "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
-        dailyPrice: 50,
-        monthlyPrice: 1500,
-        gearType: "Auto",
-        gas: "Petrol",
-    };
+
+    // const testCar: ICar = {
+    //     name: "Audi S3 Car",
+    //     mileage: "10k",
+    //     thumbnailSrc:
+    //         "https://cdn.jdpower.com/Models/640x480/2017-Audi-S3-PremiumPlus.jpg",
+    //     dailyPrice: 70,
+    //     monthlyPrice: 1600,
+    //     gearType: "Auto",
+    //     gas: "Petrol",
+    // };
+
+    // const testCar2: ICar = {
+    //     name: "HONDA cITY 5 Seater Car",
+    //     mileage: "20k",
+    //     thumbnailSrc:
+    //         "https://shinewiki.com/wp-content/uploads/2019/11/honda-city.jpg",
+    //     dailyPrice: 50,
+    //     monthlyPrice: 1500,
+    //     gearType: "Auto",
+    //     gas: "Petrol",
+    // };
 
     useEffect(() => {
         fetchTopCars();
     }, []);
 
-    const cars = [
-        (<Car {...testCar} />), (<Car {...testCar} />),
-        (<Car {...testCar2} />), (<Car {...testCar2} />),
-        (<Car {...testCar} />), (<Car {...testCar2} />)
-    ];
+    const isEmptyTopCars = !topCars || topCars.length === 0;
+
+    const cars = !isEmptyTopCars && topCars.map((car) => <Car {...car} thumbnailSrc={car.thumbnailUrl} />) || [];
+
+    // const cars = [
+    //     (<Car {...testCar} />), (<Car {...testCar} />),
+    //     (<Car {...testCar2} />), (<Car {...testCar2} />),
+    //     (<Car {...testCar} />), (<Car {...testCar2} />)
+    // ];
+
+    // if (isEmptyTopCars) return null;
 
     return <TopCarContainer>
         <Title>Explore Our Featured Deals</Title>
-        <CarsContainer>
+        {isEmptyTopCars && <EmptyCars>No Cars To Show!</EmptyCars>}
+        {!isEmptyTopCars && <CarsContainer>
             <Carousel value={current} onChange={setCurrent}
                 slides={cars}
 
@@ -143,6 +181,6 @@ export function Topcars() {
 
             <Dots value={current} onChange={setCurrent} number={isMobile ? cars.length : Math.ceil(cars.length / 3)} />
 
-        </CarsContainer>
+        </CarsContainer>}
     </TopCarContainer>;
 };
